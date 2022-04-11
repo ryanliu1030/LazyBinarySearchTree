@@ -1,0 +1,20 @@
+True
+True
+True
+True
+45 45 
+False
+True
+Error in Delete: IllegalArgumentException raised
+-
+-
+*45 *45 
+
+
+True
+True
+Error in insert: IllegalArgumentException raised
+32 32 
+Error in insert: IllegalArgumentException raised
+Error in Line: Insert
+Error in Line: hih

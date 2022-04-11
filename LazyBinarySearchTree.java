@@ -12,10 +12,13 @@ public class LazyBinarySearchTree {
     }
 
     TreeNode root;
+    Boolean first;
+    public LazyBinarySearchTree(){
+        first = true;
+    }
+
     private TreeNode find(int key){
         TreeNode temp = root;
-        if (root == null)
-            return null;
         while (temp.leftChild != null || temp.rightChild != null){
             if (temp.key == key)
                 break;
@@ -40,15 +43,16 @@ public class LazyBinarySearchTree {
     public boolean insert(int key){
         if (!checkRange(key))
             throw new IllegalArgumentException("Key value needs to be between 1 and 99");
-        TreeNode temp = find(key);
-        if (root == null){
-            root = temp;
+        if (first){
+            root = new TreeNode(key, null, null, false);
             return true;
         }
+        TreeNode temp = find(key);
 
         if (temp.key == key){
             if (temp.deleted)
                 temp.deleted = false;
+            return false;
         }
         else if (temp.key > key){
             temp.leftChild = new TreeNode(key, null, null, false);
@@ -58,7 +62,6 @@ public class LazyBinarySearchTree {
             temp.rightChild = new TreeNode(key, null, null, false);
             return true;
         }
-        return false;
     }
 
     public boolean delete(int key){
