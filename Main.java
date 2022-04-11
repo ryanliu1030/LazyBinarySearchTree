@@ -4,7 +4,7 @@ import java.io.*;
 public class Main extends LazyBinarySearchTree {
 
     public static void main(String[] args) throws Exception {
-        File file = new File("test.txt");
+        File file = new File("input.txt");
 
         Scanner sc = new Scanner(file);
         LazyBinarySearchTree root = new LazyBinarySearchTree();
@@ -13,6 +13,7 @@ public class Main extends LazyBinarySearchTree {
             String thisLine = sc.nextLine();
             String[] commands = thisLine.split(":", 2);
             commands[0] = commands[0].toLowerCase(Locale.ROOT);
+            //Have different switch commands to write the result onto the "output.txt" file.
             switch(commands[0]) {
                 case "insert":
                     if (commands.length == 1) {
