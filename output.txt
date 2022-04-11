@@ -2,19 +2,19 @@ True
 True
 True
 True
-45 45 
+98 67 55 45 
 False
 True
-Error in Delete: IllegalArgumentException raised
--
--
-*45 *45 
-
-
+False
+55
+98
+98 67 55 *45 
+3
+4
 True
 True
 Error in insert: IllegalArgumentException raised
-32 32 
+98 67 55 *45 32 84 
 Error in insert: IllegalArgumentException raised
 Error in Line: Insert
 Error in Line: hih

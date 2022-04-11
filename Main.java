@@ -64,28 +64,28 @@ public class Main extends LazyBinarySearchTree {
                         else
                             output.write("False");
                         } catch (IllegalArgumentException e) {
-                            output.write("Error in Delete: IllegalArgumentException raised");
+                            output.write("Error in Contains: IllegalArgumentException raised");
                         }
                     output.write(System.lineSeparator());
                     break;
 
                 case "findmin":
-                    output.write(root.findMin());
+                    output.write(Integer.toString(root.findMin()));
                     output.write(System.lineSeparator());
                     break;
 
                 case "findmax":
-                    output.write(root.findMax());
+                    output.write(Integer.toString(root.findMax()));
                     output.write(System.lineSeparator());
                     break;
 
                 case "height":
-                    output.write(root.height());
+                    output.write(Integer.toString(root.height()));
                     output.write(System.lineSeparator());
                     break;
 
                 case "size":
-                    output.write(root.size());
+                    output.write(Integer.toString(root.size()));
                     output.write(System.lineSeparator());
                     break;
 
@@ -98,7 +98,6 @@ public class Main extends LazyBinarySearchTree {
                 default:output.write("Error in Line: " + thisLine);
             }
         }
-        System.out.println(root.toString());
         sc.close();
         output.close();
     }

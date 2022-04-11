@@ -1,3 +1,4 @@
+import java.util.*;
 public class LazyBinarySearchTree {
     private class TreeNode{
         int key;
@@ -40,11 +41,14 @@ public class LazyBinarySearchTree {
             return false;
         return true;
     }
+
+
     public boolean insert(int key){
         if (!checkRange(key))
             throw new IllegalArgumentException("Key value needs to be between 1 and 99");
         if (first){
             root = new TreeNode(key, null, null, false);
+            first = false;
             return true;
         }
         TreeNode temp = find(key);
@@ -74,10 +78,10 @@ public class LazyBinarySearchTree {
     }
 
     public boolean contains(int key){
-        if (checkRange(key))
+        if (!checkRange(key))
             throw new IllegalArgumentException("Key value needs to be between 1 and 99");
         TreeNode temp = find(key);
-        if (temp != null && temp.key == key)
+        if (temp.key == key && !temp.deleted)
             return true;
         return false;
     }
@@ -87,7 +91,7 @@ public class LazyBinarySearchTree {
         TreeNode temp = root;
         while (temp != null){
             if (temp != null && !temp.deleted)
-                min = Math.min(temp.key, min);
+                min = temp.key;
             temp = temp.leftChild;
         }
 
@@ -107,42 +111,58 @@ public class LazyBinarySearchTree {
     }
 
     public int height(){
-        int height = traverseHeight(root, 0);
+        int height = traverseHeight(root, -1 );
         return height;
     }
 
     private int traverseHeight(TreeNode root, int count){
-        if (root != null)
-            return Math.max(traverseHeight(root.leftChild, count + 1),
-                    traverseHeight(root.rightChild, count + 1));
-
+        if (root == null)
+            return count;
+        int left = traverseHeight(root.leftChild, count + 1);
+        int right = traverseHeight(root.rightChild, count + 1);
+        count = Math.max(left, right);
         return count;
     }
 
 
     public int size(){
-        int size = traverseSize(root, 0);
+        int size = traverseSize(root);
         return size;
     }
-    private int traverseSize(TreeNode root, int count){
-        if (root != null)
-            return traverseSize(root.leftChild, count + 1) + traverseSize(root.rightChild, count + 1);
-        return count;
+    private int traverseSize(TreeNode root){
+        if (root == null)
+            return 0;
+        int left = traverseSize(root.leftChild);
+        int right = traverseSize(root.rightChild);
+        return 1 + left + right;
     }
 
     public String toString(){
-        String result = traverseString(root, "");
-        return result;
-    }
-    private String traverseString(TreeNode root, String result){
-        if (root != null)
-            if (root.deleted)
-                return traverseString(root.leftChild, result +  "*" + root.key + " ") +
-                        traverseString(root.rightChild, result + "*" + root.key + " " );
+
+        if(root == null)
+            return "";
+        String result = "";
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        stack.push(root);
+
+        while(!stack.empty()){
+
+            TreeNode n = stack.pop();
+            if (n.deleted)
+                result += "*" + n.key + " ";
             else
-                return traverseString(root.leftChild, result + root.key + " ") +
-                        traverseString(root.rightChild, result + root.key + " ");
+                result +=  n.key + " ";
+
+            if(n.rightChild != null){
+                stack.push(n.rightChild);
+            }
+            if(n.leftChild != null){
+                stack.push(n.leftChild);
+            }
+
+        }
         return result;
     }
+
 
 }
